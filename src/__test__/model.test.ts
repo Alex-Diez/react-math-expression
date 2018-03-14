@@ -1,4 +1,4 @@
-import {Parser, Const, Operation} from "../model/parser";
+import { Const, Operation, Parser } from '../model/parser';
 
 describe('Parser', () => {
   it('parses negative number', () => {

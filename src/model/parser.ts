@@ -1,5 +1,15 @@
 type AstNode = Const | Operation;
 
+class Const {
+  constructor(private value: number) {
+  }
+}
+
+class Operation {
+  constructor(private operator: string, private left: Const | Operation, private right: Const | Operation) {
+  }
+}
+
 class Parser {
 
   private index: number = 0;
@@ -61,7 +71,7 @@ class Parser {
   }
 
   private nextIsSubexpression() {
-    return this.expression[this.index] == '(';
+    return this.expression[this.index] === '(';
   }
 
   private parseConst() {
@@ -77,7 +87,7 @@ class Parser {
   }
 
   private resolveSign(): number {
-    if (this.expression[this.index] == '-') {
+    if (this.expression[this.index] === '-') {
       this.skip();
       return -1;
     }
@@ -96,18 +106,8 @@ class Parser {
   }
 
   private currentCharIsWhitespace() {
-    return this.expression[this.index] == ' ';
+    return this.expression[this.index] === ' ';
   }
 }
 
-class Const {
-  constructor(private value: number) {
-  }
-}
-
-class Operation {
-  constructor(private operator: string, private left: Const | Operation, private right: Const | Operation) {
-  }
-}
-
-export {Parser, Const, Operation};
+export { Parser, Const, Operation };
