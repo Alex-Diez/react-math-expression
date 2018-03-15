@@ -1,21 +1,16 @@
 import * as React from 'react';
-import { Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import { ConsoleScreen } from './ConsoleScreen';
+import { Button } from './Button';
+import { ButtonGroup, ButtonGroupProps, ButtonType } from './ButtonGroup';
 
-const BUTTON_TYPES = {
-  DIGIT: 'digit',
-  PARENTHESIS: 'parenthesis',
-  OPERATOR: 'operator'
-};
+interface ApplicationConsoleProp {}
 
-const BUTTON_TYPES_BOOTSTRAP = {
-  'digit': 'btn-warning',
-  'parenthesis': 'btn-secondary',
-  'operator': 'btn-info'
-};
+interface ApplicationConsoleScope {
+  value: string;
+}
 
-class ApplicationConsole extends React.Component<{}, { value: string }> {
-  constructor(props: {}) {
+class ApplicationConsole extends React.Component<ApplicationConsoleProp, ApplicationConsoleScope> {
+  constructor(props: ApplicationConsoleProp) {
     super(props);
 
     this.state = {
@@ -25,29 +20,8 @@ class ApplicationConsole extends React.Component<{}, { value: string }> {
     this.click = this.click.bind(this);
   }
 
-  click() {
-    this.setState({ value: '1' });
-  }
-
-  createButton(buttonText: string, className: string) {
-    return (
-        <button
-          id={`button-${buttonText}`}
-          type="button"
-          onClick={this.click}
-          className={
-            [
-              className, 
-              BUTTON_TYPES_BOOTSTRAP[className],
-              'btn-lg',
-              'btn',
-              'col-3'
-            ].join(' ')
-          }
-        >
-          {buttonText}
-        </button>
-    );
+  click(char: string) {
+    this.setState((prevState, props) => ({ value: prevState.value + char }));
   }
 
   render() {
@@ -56,30 +30,26 @@ class ApplicationConsole extends React.Component<{}, { value: string }> {
         <div className="row">
           <div className="col"/>
           <div className="col-md-2">
-            <div className="row" role="group">
-              {this.createButton('1', BUTTON_TYPES.DIGIT)}
-              {this.createButton('2', BUTTON_TYPES.DIGIT)}
-              {this.createButton('3', BUTTON_TYPES.DIGIT)}
-              {this.createButton('+', BUTTON_TYPES.OPERATOR)}
-            </div>
-            <div className="row" role="group">
-              {this.createButton('4', BUTTON_TYPES.DIGIT)}
-              {this.createButton('5', BUTTON_TYPES.DIGIT)}
-              {this.createButton('6', BUTTON_TYPES.DIGIT)}
-              {this.createButton('-', BUTTON_TYPES.OPERATOR)}
-            </div>
-            <div className="row" role="group">
-              {this.createButton('7', BUTTON_TYPES.DIGIT)}
-              {this.createButton('8', BUTTON_TYPES.DIGIT)}
-              {this.createButton('9', BUTTON_TYPES.DIGIT)}
-              {this.createButton('×', BUTTON_TYPES.OPERATOR)}
-            </div>
-            <div className="row" role="group">
-              {this.createButton('(', BUTTON_TYPES.PARENTHESIS)}
-              {this.createButton('0', BUTTON_TYPES.DIGIT)}
-              {this.createButton(')', BUTTON_TYPES.PARENTHESIS)}
-              {this.createButton('÷', BUTTON_TYPES.OPERATOR)}
-            </div>
+            <ButtonGroup
+              signs={['1', '2', '3', '+']}
+              buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
+              buttonClick={this.click}
+            />
+            <ButtonGroup
+              signs={['4', '5', '6', '-']}
+              buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
+              buttonClick={this.click}
+            />
+            <ButtonGroup
+              signs={['7', '8', '9', '×']}
+              buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
+              buttonClick={this.click}
+            />
+            <ButtonGroup
+              signs={['(', '0', ')', '÷']}
+              buttonTypes={[ButtonType.PARENTHESIS, ButtonType.DIGIT, ButtonType.PARENTHESIS, ButtonType.OPERATOR]}
+              buttonClick={this.click}
+            />
           </div>
           <div className="col" />
         </div>

@@ -27,12 +27,13 @@ describe('application console', () => {
     });
   });
 
-  it('adds text to screen when click on any application button', () => {
-    const buttonOne = applicationConsole.find('#button-1');
-    buttonOne.first().simulate('click');
+  describe('keys behaviour', () => {
+    it('clicking all keys enter each character once', () => {
+      applicationConsole.find('.btn').forEach((button) => button.simulate('click'));
 
-    const screen = applicationConsole.find(ConsoleScreen);
+      const screen = applicationConsole.find(ConsoleScreen);
 
-    expect(screen.html()).toEqual('<input type="text" value="1">');
+      expect(screen.html()).toContain('value="123+456-789×(0)÷"');
+    });
   });
 });
