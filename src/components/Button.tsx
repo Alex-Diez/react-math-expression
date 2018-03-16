@@ -13,21 +13,27 @@ const BUTTON_TYPES_BOOTSTRAP = {
 };
 
 class Button extends React.Component<ButtonPorps, {}> {
+  private readonly styleClasses: string;
+
+  constructor(props: ButtonPorps) {
+    super(props);
+
+    this.styleClasses = [
+      this.props.buttonType,
+      BUTTON_TYPES_BOOTSTRAP[this.props.buttonType],
+      'btn-lg',
+      'col-3',
+      'btn'
+    ].join(' ');
+  }
+
   render() {
     return (
       <button
         id={`button-${this.props.buttonText}`}
         type="button"
         onClick={this.props.onClick}
-        className={
-          [
-            this.props.buttonType,
-            BUTTON_TYPES_BOOTSTRAP[this.props.buttonType],
-            'btn-lg',
-            'btn',
-            'col-3'
-          ].join(' ')
-        }
+        className={this.styleClasses}
       >
         {this.props.buttonText}
       </button>

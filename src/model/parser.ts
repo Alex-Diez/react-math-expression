@@ -1,7 +1,7 @@
 type AstNode = Const | Operation;
 
 class Const {
-  constructor(private value: number) {
+  constructor(readonly value: number) {
   }
 }
 
@@ -110,4 +110,4 @@ class Parser {
   }
 }
 
-export { Parser, Const, Operation };
+export { Parser, Const, Operation, AstNode };

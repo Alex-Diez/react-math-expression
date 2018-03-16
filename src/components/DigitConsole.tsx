@@ -1,68 +1,66 @@
 import * as React from 'react';
+
 import { ConsoleScreen } from './ConsoleScreen';
 import { Button } from './Button';
 import { ButtonGroup, ButtonGroupProps, ButtonType } from './ButtonGroup';
+import { Parser, AstNode } from '../model/parser';
 
-interface ApplicationConsoleProp {}
+interface ApplicationConsoleProp {
+  onClick: (char: string) => void;
+}
 
 interface ApplicationConsoleScope {
   value: string;
+  root?: AstNode;
 }
 
-class ApplicationConsole extends React.Component<ApplicationConsoleProp, ApplicationConsoleScope> {
+class DigitConsole extends React.Component<ApplicationConsoleProp, ApplicationConsoleScope> {
   constructor(props: ApplicationConsoleProp) {
     super(props);
 
     this.state = {
-      value: ''
+      value: '',
+      root: undefined
     };
 
-    this.click = this.click.bind(this);
+    this.createAst = this.createAst.bind(this);
   }
 
-  click(char: string) {
-    this.setState((prevState, props) => ({ value: prevState.value + char }));
+  createAst() {
+    const parser = new Parser(this.state.value);
+    this.setState((prevState, props) => ({ root: parser.parse() }));
   }
 
   render() {
     return (
-      <form>
         <div className="row">
           <div className="col"/>
           <div className="col-md-2">
             <ButtonGroup
               signs={['1', '2', '3', '+']}
               buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
-              buttonClick={this.click}
+              buttonClick={this.props.onClick}
             />
             <ButtonGroup
               signs={['4', '5', '6', '-']}
               buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
-              buttonClick={this.click}
+              buttonClick={this.props.onClick}
             />
             <ButtonGroup
               signs={['7', '8', '9', '×']}
               buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
-              buttonClick={this.click}
+              buttonClick={this.props.onClick}
             />
             <ButtonGroup
               signs={['(', '0', ')', '÷']}
               buttonTypes={[ButtonType.PARENTHESIS, ButtonType.DIGIT, ButtonType.PARENTHESIS, ButtonType.OPERATOR]}
-              buttonClick={this.click}
+              buttonClick={this.props.onClick}
             />
           </div>
           <div className="col" />
         </div>
-        <div className="row">
-          <div className="col" />
-          <div className="col-6">
-            <ConsoleScreen text={this.state.value}/>
-          </div>
-          <div className="col" />
-        </div>
-      </form>
     );
   }
 }
 
-export { ApplicationConsole };
+export { DigitConsole };
