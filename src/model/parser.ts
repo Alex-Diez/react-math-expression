@@ -6,7 +6,7 @@ class Const {
 }
 
 class Operation {
-  constructor(private operator: string, private left: Const | Operation, private right: Const | Operation) {
+  constructor(readonly operator: string, readonly left: Const | Operation, readonly right: Const | Operation) {
   }
 }
 
