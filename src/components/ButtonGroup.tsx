@@ -20,7 +20,7 @@ class ButtonGroup extends React.Component<ButtonGroupProps, {}> {
     const sings = this.props.signs;
     const buttonTypes = this.props.buttonTypes;
     return (
-      <div className="row" role="group">
+      <div className="row justify-content-center" role="group">
         {_.zip(sings, buttonTypes).map((item, index) => this.createButton(index, item[0], item[1]))}
       </div>
     );

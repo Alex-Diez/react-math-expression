@@ -33,16 +33,16 @@ class DigitConsole extends React.Component<ApplicationConsoleProp, ApplicationCo
 
   render() {
     return (
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col"/>
-          <div className="col-md-2">
+          <div className="col-4">
             <ButtonGroup
               signs={['1', '2', '3', '+']}
               buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
               buttonClick={this.props.onClick}
             />
             <ButtonGroup
-              signs={['4', '5', '6', '-']}
+              signs={['4', '5', '6', '–']}
               buttonTypes={[ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.DIGIT, ButtonType.OPERATOR]}
               buttonClick={this.props.onClick}
             />

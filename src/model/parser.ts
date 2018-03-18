@@ -14,7 +14,7 @@ class Parser {
 
   private index: number = 0;
   private readonly numbers: Array<string> = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  private readonly lowOrderOperators: Array<string> = ['+', '-'];
+  private readonly lowOrderOperators: Array<string> = ['+', '–'];
   private readonly highOrderOperators: Array<string> = ['×', '÷'];
 
   constructor(private expression: string) {
@@ -87,7 +87,7 @@ class Parser {
   }
 
   private resolveSign(): number {
-    if (this.expression[this.index] === '-') {
+    if (this.expression[this.index] === '–') {
       this.skip();
       return -1;
     }

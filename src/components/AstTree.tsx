@@ -5,7 +5,11 @@ import { AstNode, Const, Operation } from '../model/parser';
 class Leaf extends React.Component<{ value: number }, {}> {
   render() {
     return (
-      <div className="ast-node btn btn-lg btn-success block rounded-circle">{this.props.value}</div>
+      <ul>
+        <li>
+          <div className="ast-node btn btn-lg btn-outline-dark block">{this.props.value}</div>
+        </li>
+      </ul>
     );
   }
 }
@@ -38,10 +42,12 @@ class Node extends React.Component<{ operand: string, children: AstNode[] }, {}>
   private createNode(operand: string, children: AstNode[]): JSX.Element {
     return (
       <ul>
-        <div className="ast-node btn btn-lg btn-outline-primary block rounded-circle">{operand}</div>
-        <ul>
-          {children && children.map((node, index) => <li key={index}>{this.renderSubNode(node)}</li>)}
-        </ul>
+        <li>
+          <div className="ast-node btn btn-lg btn-outline-primary block">{operand}</div>
+          <ul>
+            {children && children.map((node, index) => <li key={index}>{this.renderSubNode(node)}</li>)}
+          </ul>
+        </li>
       </ul>
     );
   }
@@ -49,36 +55,35 @@ class Node extends React.Component<{ operand: string, children: AstNode[] }, {}>
 
 class AstTree extends React.Component<{tree?: AstNode}, {}> {
   render() {
-    let tree: AstNode | undefined = undefined;
-    if (this.props.tree && this.props.tree instanceof Const) {
-       return (
-        <div className="row justify-content-center">
-          <div className="col"/>
-          <div className="col-12">
-            <Leaf value={this.props.tree.value} />
-          </div>
-          <div className="col" />
-        </div>
-       );
-    } else if (this.props.tree && this.props.tree instanceof Operation) {
-      const operation = this.props.tree;
-      return (
-        <Node
-          operand={operation.operator}
-          children={[operation.left, operation.right]}
-        />
-      );
+    const node = this.props.tree;
+    if (node) {
+      if (node instanceof Const) {
+        return this.renderSingleLeaf(node.value);
+      } else {
+        return (
+          <Node
+            operand={node.operator}
+            children={[node.left, node.right]}
+          />
+        );
+      }
     } else {
-      return (
-        <div className="row justify-content-center">
-          <div className="col" />
-          <div className="col-12">
-            <div className="tree"><Leaf value={0} /></div>
-          </div>
-          <div className="col" />
-        </div>
-      );
+      return this.renderSingleLeaf(0);
     }
+  }
+
+  private renderSingleLeaf(val: number) {
+    return (
+      <div className="row justify-content-center">
+        <div className="col" />
+        <div className="col-1">
+          <div className="tree">
+            <Leaf value={val} />
+          </div>
+        </div>
+        <div className="col" />
+      </div>
+    );
   }
 }
 

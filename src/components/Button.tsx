@@ -22,7 +22,7 @@ class Button extends React.Component<ButtonPorps, {}> {
       this.props.buttonType,
       BUTTON_TYPES_BOOTSTRAP[this.props.buttonType],
       'btn-lg',
-      'col-3',
+      'col-2',
       'btn'
     ].join(' ');
   }

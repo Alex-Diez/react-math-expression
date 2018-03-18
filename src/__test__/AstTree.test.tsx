@@ -30,7 +30,7 @@ describe('ast tree drawing', () => {
 
   it('should draw with multiple operations', () => {
     const tree = new Operation(
-      '-',
+      '–',
       new Operation('×', new Const(2), new Const(3)),
       new Const(5)
     );
@@ -38,7 +38,7 @@ describe('ast tree drawing', () => {
     const ast = mount(<AstTree tree={tree} />);
 
     const nodes = ast.find('.ast-node');
-    const values = ['-', '×', '2', '3', '5'];
+    const values = ['–', '×', '2', '3', '5'];
 
     for (let i = 0; i < nodes.length; i++) {
       expect(nodes.at(i).html()).toContain(values[i]);

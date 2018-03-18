@@ -34,7 +34,7 @@ describe('application console', () => {
 
       const screen = applicationConsole.find(ConsoleScreen);
 
-      expect(screen.html()).toContain('value="123+456-789×(0)÷"');
+      expect(screen.html()).toContain('value="123+456–789×(0)÷"');
     });
 
     it('create one root node from single number', () => {
