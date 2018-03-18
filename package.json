@@ -1,8 +1,10 @@
 {
   "name": "react-math-expression",
+  "homepage": "http://alex-diez.github.io/react-math-expression",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/lodash": "^4.14.105",
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.5",
@@ -16,7 +18,9 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.9",
@@ -27,6 +31,7 @@
     "@types/react-dom": "^16.0.4",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "gh-pages": "^1.1.0",
     "typescript": "^2.7.2"
   }
 }
