@@ -60,12 +60,7 @@ class AstTree extends React.Component<{tree?: AstNode}, {}> {
       if (node instanceof Const) {
         return this.renderSingleLeaf(node.value);
       } else {
-        return (
-          <Node
-            operand={node.operator}
-            children={[node.left, node.right]}
-          />
-        );
+        return <Node operand={node.operator} children={[node.left, node.right]}/>;
       }
     } else {
       return this.renderSingleLeaf(0);
